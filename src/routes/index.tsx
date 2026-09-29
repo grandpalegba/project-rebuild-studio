@@ -259,17 +259,17 @@ const advisorAngles = [60, 180, 300];
 const agentAngles = [22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5];
 
 const cTalents = talents.map((t, i) => {
-  const [x, y] = polar(200, talentAngles[i]);
+  const [x, y] = polar(200, talentAngles[i]!);
   return { ...t, kind: "talent" as NodeKind, id: t.id, label: t.name, sub: t.role, blurb: t.short, x, y };
 });
 
 const cAdvisers = advisers.map((a, i) => {
-  const [x, y] = polar(320, advisorAngles[i]);
+  const [x, y] = polar(320, advisorAngles[i]!);
   return { ...a, kind: "advisor" as NodeKind, id: a.id, label: a.name, sub: a.role, blurb: a.domains, x, y };
 });
 
 const cAgents = agents.map((a, i) => {
-  const [x, y] = polar(440, agentAngles[i]);
+  const [x, y] = polar(440, agentAngles[i]!);
   return { ...a, kind: "agent" as NodeKind, id: a.id, label: a.name, sub: `Agent ${a.number}`, blurb: a.mission, x, y };
 });
 
