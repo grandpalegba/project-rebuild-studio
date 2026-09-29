@@ -336,7 +336,7 @@ function Constellation() {
           <div className="lg:col-span-7 xl:col-span-8">
             <div className="timeline-scroll overflow-x-auto pb-2">
               <div className="mx-auto min-w-[640px] max-w-[860px]">
-                <svg viewBox="0 0 1000 1000" className="w-full" role="img" aria-label="Constellation AAA : 3 talents, 3 conseillers, 8 intelligences IA autour du centre AAA">
+                <svg viewBox="-150 -90 1300 1180" className="w-full" role="img" aria-label="Constellation AAA : 3 talents, 3 conseillers, 8 intelligences IA autour du centre AAA">
                   {/* Anneaux */}
                   {[200, 320, 440].map((r) => (
                     <circle key={r} cx={CX} cy={CY} r={r} fill="none" stroke="var(--sky)" strokeOpacity="0.18" strokeDasharray="2 10" />
@@ -417,8 +417,8 @@ function Constellation() {
                     >
                       {focusId === n.id && <circle cx={n.x} cy={n.y} r={44} fill="var(--sun)" fillOpacity="0.2" />}
                       <circle cx={n.x} cy={n.y} r={32} fill="var(--sun)" />
-                      <text x={n.x} y={n.y - 20} textAnchor="middle" fontSize="19" fontWeight="700" fill="var(--cream)" fontFamily="Fraunces, serif">{n.label}</text>
-                      <text x={n.x} y={n.y + 52} textAnchor="middle" fontSize="12" fill="var(--cream)" fillOpacity="0.65" fontFamily="Space Grotesk, sans-serif">{n.sub}</text>
+                      <text x={n.x} y={n.y - 48} textAnchor="middle" fontSize="20" fontWeight="700" fill="var(--cream)" fontFamily="Fraunces, serif">{n.label}</text>
+                      <text x={n.x} y={n.y + 56} textAnchor="middle" fontSize="12" fill="var(--cream)" fillOpacity="0.65" fontFamily="Space Grotesk, sans-serif">{n.sub}</text>
                     </g>
                   ))}
 
