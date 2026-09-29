@@ -241,6 +241,7 @@ type CNode = {
   label: string;
   sub: string;
   blurb: string;
+  number?: string;
   x: number;
   y: number;
 };
