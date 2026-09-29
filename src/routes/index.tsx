@@ -360,25 +360,33 @@ function Constellation() {
                   })}
 
                   {/* Nœuds */}
-                  {cAgents.map((n) => (
-                    <g
-                      key={n.id}
-                      className="cursor-pointer transition-opacity duration-300"
-                      style={{ opacity: focusId && focusId !== n.id && !connected?.has(n.id) ? 0.25 : 1 }}
-                      onMouseEnter={() => setHovered(n.id)}
-                      onMouseLeave={() => setHovered(null)}
-                      onClick={() => setActiveId((v) => (v === n.id ? null : n.id))}
-                    >
-                      {focusId === n.id && <circle cx={n.x} cy={n.y} r={26} fill="var(--sky)" fillOpacity="0.25" />}
-                      <circle cx={n.x} cy={n.y} r={15} fill="var(--sky)" />
-                      <text x={n.x} y={n.y + 4.5} textAnchor="middle" fontSize="13" fontWeight="700" fill="var(--navy)">{n.number}</text>
-                      <text
-                        x={n.x + (Math.cos(((n.x - CX) || 1) / 440) * 0) }
-                        y={0}
-                      />
-                      <AgentLabel x={n.x} y={n.y} />
-                    </g>
-                  ))}
+                  {cAgents.map((n) => {
+                    const dx = n.x - CX;
+                    const dy = n.y - CY;
+                    const anchor: "middle" | "start" | "end" = Math.abs(dx) < 60 ? "middle" : dx > 0 ? "start" : "end";
+                    const tx = anchor === "middle" ? n.x : n.x + Math.sign(dx) * 28;
+                    const ty = anchor === "middle" ? n.y + Math.sign(dy || 1) * 38 : n.y + 4;
+                    const words = n.label.split(" ");
+                    const lines: string[] = [];
+                    for (let i = 0; i < words.length; i += 2) lines.push(words.slice(i, i + 2).join(" "));
+                    return (
+                      <g
+                        key={n.id}
+                        className="cursor-pointer transition-opacity duration-300"
+                        style={{ opacity: focusId && focusId !== n.id && !connected?.has(n.id) ? 0.25 : 1 }}
+                        onMouseEnter={() => setHovered(n.id)}
+                        onMouseLeave={() => setHovered(null)}
+                        onClick={() => setActiveId((v) => (v === n.id ? null : n.id))}
+                      >
+                        {focusId === n.id && <circle cx={n.x} cy={n.y} r={26} fill="var(--sky)" fillOpacity="0.25" />}
+                        <circle cx={n.x} cy={n.y} r={15} fill="var(--sky)" />
+                        <text x={n.x} y={n.y + 4.5} textAnchor="middle" fontSize="13" fontWeight="700" fill="var(--navy)" fontFamily="Space Grotesk, sans-serif">{n.number}</text>
+                        {lines.map((line, li) => (
+                          <text key={li} x={tx} y={ty + li * 17} textAnchor={anchor} fontSize="14" fontWeight="600" fill="var(--cream)" fontFamily="Space Grotesk, sans-serif">{line}</text>
+                        ))}
+                      </g>
+                    );
+                  })}
 
                   {cAdvisers.map((n) => (
                     <g
@@ -490,22 +498,6 @@ function Constellation() {
   );
 }
 
-function AgentLabel({ x, y }: { x: number; y: number }) {
-  const dx = x - CX;
-  const dy = y - CY;
-  const lx = x + (dx === 0 ? 0 : Math.sign(dx) * 26);
-  const ly = y + (dy === 0 ? 0 : Math.sign(dy) * 26);
-  const anchor = Math.abs(dx) < 40 ? "middle" : dx > 0 ? "start" : "end";
-  const tx = anchor === "middle" ? x : lx;
-  const ty = anchor === "middle" ? y + Math.sign(dy || 1) * 30 : ly + 4;
-  // Découpage du nom en deux lignes max
-  const words = (labelCache.get(x + ":" + y) ?? "").split(" ");
-  void words;
-  return null;
-}
-
-const labelCache = new Map<string, string>();
-void labelCache;
 
 // ---------- Agent fiche ----------
 
